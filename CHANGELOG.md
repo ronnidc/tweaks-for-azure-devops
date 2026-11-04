@@ -15,5 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Azure DevOps Server: the user adds a server by its address on the options page, and the browser asks for access to that one site.
 - Chrome, Edge and Firefox from one build, on dev.azure.com and `*.visualstudio.com` out of the box.
 - A footer on the options page with the version and the two ways to send feedback, by mail or as a GitHub issue, with the version and the browser filled in.
+- A mark of its own: a taskboard with a collapsed row and the number sign it forgot, in one blue on a white tile, for the toolbar, the stores and the options page.
 
 [Unreleased]: https://github.com/ronnidc/tweaks-for-azure-devops/commits/main

@@ -4,7 +4,9 @@ import { isCloudHost, siteOrigin, type Site } from '@/core/sites';
 import { browser } from '@/platform/browser';
 import { loadSettings, saveSettings } from '@/platform/settings';
 import { addSite, listSites, onSitesChange, removeSite } from '@/platform/sites';
-import { fill, h } from './dom';
+import markIcon from '@/assets/icon.svg?raw';
+import nameMark from '@/assets/name.svg?raw';
+import { fill, h, svg } from './dom';
 
 /**
  * The options page: one switch per tweak, the servers the user has added, and
@@ -77,7 +79,17 @@ export async function mountOptions(root: HTMLElement): Promise<void> {
 
   fill(
     root,
-    h('header', { class: 'masthead' }, h('h1', {}, NAME), h('p', { class: 'tagline muted' }, TAGLINE)),
+    h(
+      'header',
+      { class: 'masthead' },
+      svg(markIcon, { class: 'logo', 'aria-hidden': 'true' }),
+      h(
+        'div',
+        { class: 'text' },
+        h('h1', {}, svg(nameMark, { class: 'name', role: 'img', 'aria-label': NAME })),
+        h('p', { class: 'tagline' }, TAGLINE),
+      ),
+    ),
     h(
       'main',
       {},

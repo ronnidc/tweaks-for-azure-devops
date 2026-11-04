@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- The full mark, direction 03 "The missing field" from Figma Make, 2026-11-04: a taskboard with a collapsed row, its expand triangle, and the number sign the row forgot, in one blue. Every gap is cut out with a mask, never painted white, so the mark works on any background. The white rounded square is part of the icon, inset 8 of 128 as the stores want air around an icon, and has a class so the options page can stroke it where white would vanish into the page. Used from 48 pixels up, the toolbar sizes come from icon-small.svg. -->
+  <rect class="tile" x="8" y="8" width="112" height="112" rx="25" fill="white"/>
+  <defs>
+    <mask id="tfa-row">
+      <rect width="128" height="128" fill="white"/>
+      <path d="M28 55L40 64L28 73Z" fill="black"/>
+    </mask>
+    <mask id="tfa-chip">
+      <rect width="128" height="128" fill="white"/>
+      <g fill="black">
+        <path d="M82 51h6l-4 26h-6Z"/>
+        <path d="M94 51h6l-4 26h-6Z"/>
+        <rect x="74" y="55" width="30" height="6" rx="1"/>
+        <rect x="74" y="67" width="30" height="6" rx="1"/>
+      </g>
+    </mask>
+  </defs>
+  <g fill="#1676D2">
+    <rect x="17" y="22" width="94" height="18" rx="7"/>
+    <rect x="17" y="46" width="42" height="36" rx="8" mask="url(#tfa-row)"/>
+    <rect x="65" y="46" width="46" height="36" rx="8" mask="url(#tfa-chip)"/>
+    <rect x="17" y="88" width="94" height="18" rx="7"/>
+  </g>
+</svg>

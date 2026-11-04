@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 652 154">
+  <!-- The wordmark for dark backgrounds, from Figma Make, 2026-11-04: the mark without its tile and the name "Tweaks for Azure DevOps" as monoline geometry, so no font is needed. -->
+  <g transform="matrix(1.7 0 0 1.7 -28.9 -37.4)">
+    <defs>
+      <mask id="tfa-wmw-row">
+        <rect width="128" height="128" fill="white"/>
+        <path d="M28 55L40 64L28 73Z" fill="black"/>
+      </mask>
+      <mask id="tfa-wmw-chip">
+        <rect width="128" height="128" fill="white"/>
+        <g fill="black">
+          <path d="M82 51h6l-4 26h-6Z"/>
+          <path d="M94 51h6l-4 26h-6Z"/>
+          <rect x="74" y="55" width="30" height="6" rx="1"/>
+          <rect x="74" y="67" width="30" height="6" rx="1"/>
+        </g>
+      </mask>
+    </defs>
+    <g fill="white">
+      <rect x="17" y="22" width="94" height="18" rx="7"/>
+      <rect x="17" y="46" width="42" height="36" rx="8" mask="url(#tfa-wmw-row)"/>
+      <rect x="65" y="46" width="46" height="36" rx="8" mask="url(#tfa-wmw-chip)"/>
+      <rect x="17" y="88" width="94" height="18" rx="7"/>
+    </g>
+  </g>
+  <g fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="13.2" d="M196.6 6.6H249.4M223 6.6V77.4M259 28.2L273.4 77.4L288.4 36L303.4 77.4L317.8 28.2M339.4 52.8H388.6A24.6 24.6 0 1 0 381.4 70.2M459.4 52.8A24.6 24.6 0 0 0 410.2 52.8A24.6 24.6 0 0 0 459.4 52.8ZM459.4 28.2V77.4M481 6.6V77.4M522.4 28.2L481 60M496 48.6L524.8 77.4M585.4 28.2H558.7A12.3 12.3 0 0 0 558.7 52.8H573.7A12.3 12.3 0 0 1 573.7 77.4H546.4"/>
+    <path stroke-width="6.05" d="M198.25 139.48V113.9A6.88 6.88 0 0 1 205.13 107.03H208.7M193.03 116.93H206.5M241.15 128.2A11.28 11.28 0 0 0 218.6 128.2A11.28 11.28 0 0 0 241.15 128.2ZM251.05 116.93V139.48M251.05 128.2A11.28 11.28 0 0 1 262.33 116.93H265.63M284.88 139.48L298.9 107.03L312.93 139.48M289.28 129.3H308.53M323.1 116.93H344.83L323.1 139.48H345.38M355.28 116.93V128.2A11.28 11.28 0 0 0 377.83 128.2M377.83 116.93V139.48M387.73 116.93V139.48M387.73 128.2A11.28 11.28 0 0 1 399 116.93H402.3M412.2 128.2H434.75A11.28 11.28 0 1 0 431.45 136.18M454 139.48V107.03H464.18A16.23 16.23 0 0 1 464.18 139.48ZM490.3 128.2H512.85A11.28 11.28 0 1 0 509.55 136.18M522.75 116.93L534.03 139.48L545.3 116.93M587.65 123.25A16.23 16.23 0 0 0 555.2 123.25A16.23 16.23 0 0 0 587.65 123.25ZM620.1 128.2A11.28 11.28 0 0 0 597.55 128.2A11.28 11.28 0 0 0 620.1 128.2ZM597.55 116.93V150.48M647.88 116.93H635.64A5.64 5.64 0 0 0 635.64 128.2H642.51A5.64 5.64 0 0 1 642.51 139.48H630"/>
+  </g>
+</svg>

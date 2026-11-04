@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- The small mark for the toolbar, 16 and 32 pixels, from Figma Make, 2026-11-04: the same taskboard with heavier bars, a bigger triangle and a bigger number sign, the white square filling the 128, because the full mark's details turn to mush below 48 pixels. -->
+  <rect class="tile" width="128" height="128" rx="28" fill="white"/>
+  <defs>
+    <mask id="tfa-small-row">
+      <rect width="128" height="128" fill="white"/>
+      <path d="M20 44L42 64L20 84Z" fill="black"/>
+    </mask>
+    <mask id="tfa-small-chip">
+      <rect width="128" height="128" fill="white"/>
+      <g fill="black">
+        <path d="M82 40h8l-4 48h-8Z"/>
+        <path d="M98 40h8l-4 48h-8Z"/>
+        <rect x="72" y="48" width="40" height="8"/>
+        <rect x="72" y="72" width="40" height="8"/>
+      </g>
+    </mask>
+  </defs>
+  <g fill="#1676D2">
+    <rect x="8" y="8" width="112" height="16" rx="8"/>
+    <rect x="8" y="32" width="48" height="64" rx="10" mask="url(#tfa-small-row)"/>
+    <rect x="64" y="32" width="56" height="64" rx="10" mask="url(#tfa-small-chip)"/>
+    <rect x="8" y="104" width="112" height="16" rx="8"/>
+  </g>
+</svg>
