@@ -17,7 +17,7 @@ More tweaks come as they are missed. Each is a switch on the options page, so yo
 
 ## Feedback
 
-Something not working, or an idea? Write to support@ronnidc.com, or use the issue forms at https://github.com/ronnidc/tweaks-for-azure-devops/issues/new/choose. The links at the bottom of the options page open either one with the version and the browser filled in, which you can see and change before sending.
+Something not working, or an idea? Use the issue forms at https://github.com/ronnidc/tweaks-for-azure-devops/issues/new/choose. The links at the bottom of the options page open the forms, or a mail for anyone who would rather not post in public, with the version and the browser filled in, which you can see and change before sending.
 
 ## Decisions
 
