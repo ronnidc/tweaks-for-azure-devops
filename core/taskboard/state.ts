@@ -7,8 +7,8 @@
 /** The API answers at most this many ids per call. */
 export const BATCH = 200;
 
-// The oldest version both hosts answer. Verified on Azure DevOps Server
-// 2026-11-04, the cloud answers every version from 4.1 on.
+// The oldest version both hosts answer, verified on Azure DevOps Server and
+// on dev.azure.com 2026-11-04.
 const API_VERSION = '6.0';
 
 const SPRINTS_HUB = /^(.*)\/[^/]+\/_sprints(?:\/|$)/;
