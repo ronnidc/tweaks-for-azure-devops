@@ -10,7 +10,7 @@ Everything the three stores ask for, so a release is uploads and form filling. T
 | `listing.en.md` | Name, short description, summary, description and search terms |
 | `images/` | What gets uploaded: the Edge logo, the screenshots and the promotional tiles |
 
-The mark lives in `assets/`: the full icon, the small icon for 16 and 32 pixels, the wordmark in the brand color and in white for the promotional tiles, and the name alone for the options page. It was drawn in Figma Make on 2026-11-04 as direction 03, "The missing field": a taskboard with a collapsed row and the number sign it forgot, in #1676D2, a blue of its own next to Shop Again?'s navy so the two tell apart in one toolbar. The screenshots and the promotional tiles are not made yet. Screenshots are taken in a test organization with made-up stories, never from a customer's board.
+The mark lives in `assets/`: the full icon, the small icon for 16 and 32 pixels, the wordmark in the brand color and in white for the promotional tiles, and the name alone for the options page. It was drawn in Figma Make on 2026-11-04 as direction 03, "The missing field": a taskboard with a collapsed row and the number sign it forgot, in #1676D2, a blue of its own next to Shop Again?'s navy so the two tell apart in one toolbar. The screenshots are taken in the publisher's test organization with made-up stories, never from a customer's board, at 1280 by 800 in Claude's Chrome with the content script's core injected, which draws exactly what the extension draws: `taskboard-dark.png` and `taskboard-light.png` with the tweak, `taskboard-light-before.png` without it, for a before and after. The promotional tiles are not made yet.
 
 ## Images the stores take
 

@@ -1,4 +1,7 @@
-# Tweaks for Azure DevOps
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/wordmark-white.svg">
+  <img alt="Tweaks for Azure DevOps" src="assets/wordmark.svg" width="420">
+</picture>
 
 The features Azure DevOps forgot. A browser extension for Chrome, Edge and Firefox that adds the small things Azure DevOps lacks, each with its own switch.
 
