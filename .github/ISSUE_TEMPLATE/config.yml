@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Write a mail instead
+    url: https://github.com/ronnidc/tweaks-for-azure-devops#feedback
+    about: support@ronnidc.com, for anyone who would rather not post in public.

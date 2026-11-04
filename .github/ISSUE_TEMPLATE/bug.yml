@@ -1,0 +1,41 @@
+name: Something is not working
+description: A tweak that does not show, shows twice, or anything else that does not do what it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. If you would rather not post in public, write to support@ronnidc.com instead.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, and what the extension did instead of what you expected.
+    validations:
+      required: true
+  - type: dropdown
+    id: host
+    attributes:
+      label: Which Azure DevOps?
+      options:
+        - dev.azure.com
+        - Something.visualstudio.com
+        - Azure DevOps Server (your own server)
+  - type: input
+    id: version-azdo
+    attributes:
+      label: Azure DevOps Server version
+      description: Only for your own server. Found under Organization settings, Overview, or in the page footer.
+      placeholder: Azure DevOps Server 2022 Update 2
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      description: Filled in when you came here from the bottom of the extension's options page.
+      placeholder: Chrome 141 on macOS
+  - type: input
+    id: version
+    attributes:
+      label: Tweaks for Azure DevOps version
+      description: Also filled in from the options page, where it is at the bottom.
+      placeholder: 1.0.0

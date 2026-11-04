@@ -1,0 +1,13 @@
+.DS_Store
+node_modules/
+*.log
+.claude/
+# Agent notes, kept in dotfiles and symlinked here.
+CLAUDE.md
+
+# WXT
+.output/
+.wxt/
+stats.html
+stats-*.json
+web-ext.config.ts

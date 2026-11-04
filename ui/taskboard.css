@@ -1,0 +1,35 @@
+/* The badges on collapsed story rows, in the page's own color at either theme:
+   the id muted like the id on the cards, the state in bold. Never a fixed color,
+   the cloud runs dark as often as light. */
+.tfad-id {
+  opacity: 0.6;
+  font-weight: normal;
+  /* Digits look a touch larger than letters at the same size. */
+  font-size: 95%;
+}
+
+.tfad-state {
+  font-weight: 600;
+}
+
+/* Cloud (New Boards Hub): the row is a flex row whose items each bring their own
+   8 px gap, and the count after the title is in the row's own size. */
+.taskboard-collapsed-row .tfad-id,
+.taskboard-collapsed-row .tfad-state {
+  flex: none;
+  margin-inline-start: 8px;
+}
+
+/* Azure DevOps Server: the title is an inline-block aligned to the middle, and so
+   are its siblings, so the badges follow suit or they sit on the baseline and
+   float above the title. The count after the title is 12 px with 10 px in front. */
+.taskboard-row-summary .tfad-id,
+.taskboard-row-summary .tfad-state {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.taskboard-row-summary .tfad-state {
+  margin-inline-start: 10px;
+  font-size: 12px;
+}

@@ -1,0 +1,109 @@
+/* System colors and the system font let the options page follow each browser's
+   light and dark look without a design per browser. */
+:root {
+  color-scheme: light dark;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --radius: 8px;
+
+  --text-muted: color-mix(in srgb, CanvasText 62%, Canvas);
+  --border: color-mix(in srgb, CanvasText 18%, Canvas);
+  --surface: color-mix(in srgb, CanvasText 5%, Canvas);
+  --surface-hover: color-mix(in srgb, CanvasText 10%, Canvas);
+  --error: light-dark(#b42318, #ff8f85);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Classes that set display would otherwise win over the hidden attribute. */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: Canvas;
+  color: CanvasText;
+  font: 14px/1.45 system-ui, sans-serif;
+}
+
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--surface-hover);
+}
+
+button.primary {
+  border-color: CanvasText;
+  background: CanvasText;
+  color: Canvas;
+  font-weight: 600;
+}
+
+button.primary:hover {
+  background: color-mix(in srgb, CanvasText 85%, Canvas);
+}
+
+/* Links in the text's own color: the underline is what says "link", and a
+   second color would pull the eye to the least important thing on the page. */
+a,
+button.link {
+  color: CanvasText;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+button.link {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+input[type='text'] {
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: Field;
+  color: FieldText;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.error {
+  color: var(--error);
+}
