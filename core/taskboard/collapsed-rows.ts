@@ -37,17 +37,23 @@ export function decorate(
     for (const row of profile.rows(root)) {
       const id = profile.idOf(row);
       const title = profile.titleOf(row);
-      if (!id || !title) continue;
+      if (!title) continue;
+      const idBadge = badgeNextTo(title, ID_CLASS);
+      const stateBadge = badgeNextTo(title, STATE_CLASS);
+      if (!id) {
+        // No work item, no badges, also not those an earlier pass put there.
+        removeBadge(idBadge, 'after');
+        removeBadge(stateBadge, 'before');
+        continue;
+      }
       shown.push(id);
       const fresh = !row.classList.contains(SEEN_CLASS);
       row.classList.add(SEEN_CLASS);
 
-      const idBadge = badgeNextTo(title, ID_CLASS);
       if (!options.id) removeBadge(idBadge, 'after');
       else if (!idBadge) title.before(badge(ID_CLASS, id), ' ');
       else if (idBadge.textContent !== id) idBadge.textContent = id;
 
-      const stateBadge = badgeNextTo(title, STATE_CLASS);
       if (!options.state) {
         removeBadge(stateBadge, 'before');
         continue;

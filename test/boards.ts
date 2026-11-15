@@ -1,7 +1,8 @@
 /**
  * The collapsed rows as the two hosts draw them, from the live boards on
- * 2026-11-04, trimmed of focus zones and the like. Each board also has a row
- * without a work item, which the tweaks leave alone.
+ * 2026-11-04 (cloud) and 2026-11-15 (server), trimmed of focus zones and the
+ * like. Each board also has a row without a work item, which the tweaks leave
+ * alone.
  */
 
 /** dev.azure.com, New Boards Hub: a collapsed story, an expanded one and a collapsed Unparented row. */
@@ -42,7 +43,13 @@ export function cloudBoard(): string {
 </table>`;
 }
 
-/** Azure DevOps Server: a collapsed story with its hidden content row, and the Unparented row. */
+/**
+ * Azure DevOps Server with a person filter on: a collapsed story with its
+ * hidden content row, the Unparented row, an expanded story that has a content
+ * row alone, and right after it a story that has never been expanded and has a
+ * summary row alone. The id of that last one is in the page's script data
+ * only, see pageQuery.
+ */
 export function serverBoard(): string {
   return `
 <table id="taskboard-table-body">
@@ -66,7 +73,7 @@ export function serverBoard(): string {
       </td>
     </tr>
     <tr class="taskboard-row taskboard-content-row" id="taskboard-row-16" style="display: none;">
-      <td class="taskboard-cell taskboard-parent" id="taskboard-table-body_unparented"></td>
+      <td class="taskboard-cell taskboard-parent" id="taskboard-table-body_p0"></td>
     </tr>
     <tr class="taskboard-row taskboard-row-summary ui-droppable" id="taskboard-summary-row-16">
       <td class="taskboard-expander"><button class="bowtie-icon bowtie-toggle-tree-collapsed" title="Expand this row"></button></td>
@@ -79,6 +86,36 @@ export function serverBoard(): string {
         </div>
       </td>
     </tr>
+    <tr class="taskboard-row taskboard-content-row" id="taskboard-row-17">
+      <td class="taskboard-expander"><button class="bowtie-icon bowtie-toggle-tree-expanded" title="Collapse this row"></button></td>
+      <td class="taskboard-cell taskboard-parent" id="taskboard-table-body_p701">
+        <div id="tile-701" class="parentTbTile"><div class="id" field="System.Id">701</div></div>
+      </td>
+    </tr>
+    <tr class="taskboard-row taskboard-row-summary ui-droppable" id="taskboard-summary-row-18">
+      <td class="taskboard-expander"><button class="bowtie-icon bowtie-toggle-tree-collapsed" title="Expand this row"></button></td>
+      <td class="taskboard-cell taskboard-parent taskboard-parent-width" colspan="5">
+        <div class="tbPivotItem">
+          <div class="ellipsis" tabindex="0">
+            <span class="collapsed-tile-gutter"></span>
+            <span class="icon bowtie-icon bowtie-status-warning pivot-warning" style="display:none;"></span>
+            <span class="witTitle">Story that was never expanded</span>
+            <div class="witStateSummary"><span class="work-item-count">2 not started</span><span class="witRemainingWork"></span></div>
+          </div>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>`;
+}
+
+/**
+ * The page's jQuery as the older taskboard uses it on a row: the key the board
+ * keeps as data on the row, here by the row's id. A number for a story,
+ * `__null` for the Unparented row, a name when the board is grouped by people.
+ */
+export function pageQuery(keys: Record<string, unknown>) {
+  return (element: Element) => ({
+    data: (name: string) => (name === 'pivotKey' ? keys[element.id] : undefined),
+  });
 }

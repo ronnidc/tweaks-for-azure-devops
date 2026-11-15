@@ -90,6 +90,20 @@ describe('decorate', () => {
     expect(document.querySelector('.witTitle')!.parentElement!.innerHTML).toBe(before);
   });
 
+  it('takes the badges off an element the page hands to a row without a work item', () => {
+    document.body.innerHTML = cloudBoard();
+    const title = document.querySelector('td[data-row="6"] span.margin-left-8:not(.work-item-type-icon)')!;
+    const before = rowText(title);
+    decorate(document, PROFILES, BOTH, stateOf);
+    expect(rowText(title)).not.toBe(before);
+
+    document.querySelector('td[data-row="6"]')!.setAttribute('data-row', 'unparented');
+    expect(decorate(document, PROFILES, BOTH, stateOf)).toEqual({ shown: [], wanted: [] });
+    expect(document.querySelector(`.${ID_CLASS}`)).toBeNull();
+    expect(document.querySelector(`.${STATE_CLASS}`)).toBeNull();
+    expect(rowText(title)).toBe(before);
+  });
+
   it('asks for no state when that tweak is off', () => {
     document.body.innerHTML = cloudBoard();
     expect(decorate(document, PROFILES, { id: true, state: false }, stateOf)).toEqual({ shown: ['6'], wanted: [] });

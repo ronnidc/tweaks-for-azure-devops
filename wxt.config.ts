@@ -31,10 +31,10 @@ export default defineConfig({
     // on a click. Without the key Firefox has no button to pin, and the
     // options page is only reachable through its add-ons manager.
     action: {},
-    // storage for the switches, scripting to register the taskboard script on
+    // storage for the switches, scripting to register the content scripts on
     // the servers the user adds.
     permissions: ['storage', 'scripting'],
-    // The cloud is in the content script's own matches. A server of the user's
+    // The cloud is in the content scripts' own matches. A server of the user's
     // own has a name nobody can guess, so access to it is asked for when the
     // user adds it on the options page, one site at a time.
     optional_host_permissions: ['*://*/*'],
