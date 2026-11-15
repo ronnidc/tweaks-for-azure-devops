@@ -8,7 +8,7 @@ The store links come with the first release.
 
 - **Work item ID and state on collapsed taskboard rows.** When a story row on the sprint taskboard is collapsed, Azure DevOps shows the title and a count of its tasks, and nothing else. This tweak puts the ID in front of the title, muted like the ID on the cards, and the state after it in bold. Two switches, one for each, both on from the start. People have asked Microsoft for this since 2020 ([Developer Community](https://developercommunity.visualstudio.com/t/Show-user-story-ID-and-state-on-taskboar/1189040)), and an Azure DevOps extension from the Marketplace cannot do it: such an extension can add hubs and widgets, but cannot change the taskboard itself. A browser extension can.
 
-More tweaks come as they are missed. Each is a switch on the options page, so you can keep the ones you want.
+More tweaks come as they are missed. Each is a switch on the options page, so you can keep the ones you want. The extension's button in the toolbar opens it.
 
 ## Where it works
 

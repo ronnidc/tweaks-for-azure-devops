@@ -27,6 +27,10 @@ export default defineConfig({
     description:
       'The features Azure DevOps forgot: the work item ID and state on collapsed taskboard rows, with one switch per tweak.',
     homepage_url: 'https://github.com/ronnidc/tweaks-for-azure-devops',
+    // A button without a popup: the background script opens the options page
+    // on a click. Without the key Firefox has no button to pin, and the
+    // options page is only reachable through its add-ons manager.
+    action: {},
     // storage for the switches, scripting to register the taskboard script on
     // the servers the user adds.
     permissions: ['storage', 'scripting'],

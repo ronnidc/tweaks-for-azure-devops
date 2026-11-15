@@ -1,8 +1,9 @@
 import { browser } from '@/platform/browser';
 import { listSites, onSitesChange } from '@/platform/sites';
 
-// The content script's files as WXT names them. The background script does
-// nothing but register them for the servers the user has added.
+// The content script's files as WXT names them. The background script
+// registers them for the servers the user has added, and opens the options
+// page from the toolbar button.
 const SCRIPT_ID = 'taskboard-sites';
 const SCRIPT_JS = 'content-scripts/taskboard.js';
 const SCRIPT_CSS = 'content-scripts/taskboard.css';
@@ -11,6 +12,9 @@ export default defineBackground(() => {
   // Also on update, in case the file names above changed with the version.
   browser.runtime.onInstalled.addListener(() => inTurn(syncSiteScripts));
   onSitesChange(() => inTurn(syncSiteScripts));
+  browser.action.onClicked.addListener(() => {
+    browser.runtime.openOptionsPage().catch((error) => console.error(error));
+  });
 });
 
 // Several events can ask for the same sync at once, and two overlapping runs
