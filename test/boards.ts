@@ -1,8 +1,8 @@
 /**
  * The collapsed rows as the two hosts draw them, from the live boards on
- * 2026-11-04 (cloud) and 2026-11-15 (server), trimmed of focus zones and the
- * like. Each board also has a row without a work item, which the tweaks leave
- * alone.
+ * 2026-11-04 and 2026-11-17 (cloud) and 2026-11-15 (server), trimmed of focus
+ * zones and the like. Each board also has a row without a work item, which the
+ * tweaks leave alone.
  */
 
 /** dev.azure.com, New Boards Hub: a collapsed story, an expanded one and a collapsed Unparented row. */
@@ -31,11 +31,50 @@ export function cloudBoard(): string {
       </td>
     </tr>
     <tr data-row-index="2">
-      <td class="taskboard-collapsed-row" colspan="5" data-column="parent-column" data-row="unparented" data-iscollapsed="true">
+      <td class="taskboard-collapsed-row" colspan="5" data-column="parent-column" data-row="0" data-iscollapsed="true">
         <div class="flex-row flex-center">
-          <button aria-label="Expand this row" class="taskboard-expand-collapse-button bolt-button"></button>
+          <button aria-label="Expand this row" class="taskboard-expand-collapse-button bolt-button" id="__bolt-expand-collapse-button-0"></button>
+          <span class="fluent-icons-enabled"><span aria-hidden="true" class="work-item-type-icon margin-left-8"></span></span>
           <span class="margin-left-8">Unparented</span>
           <div class="taskboard-state-rollup flex-row"><span>2 not started</span></div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>`;
+}
+
+/**
+ * dev.azure.com grouped by people (View options, Assigned To): the collapsed
+ * rows are the tasks nobody has and a person. Each has an identity where a
+ * story has its title, and the name as the row's key.
+ */
+export function cloudPeopleBoard(): string {
+  return `
+<table class="sticky-table bolt-table">
+  <tbody>
+    <tr data-row-index="0">
+      <td class="taskboard-collapsed-row" colspan="5" data-column="parent-column" data-row="Unassigned" data-iscollapsed="true">
+        <div class="flex-row flex-center">
+          <button aria-label="Expand this row" class="taskboard-expand-collapse-button bolt-button" id="__bolt-expand-collapse-button-Unassigned"></button>
+          <div class="wit-ui-control identity-view margin-top-8 text-ellipsis">
+            <div class="vss-Persona identity-avatar" role="img" aria-label="Unassigned"></div>
+            <div class="identity-display-name"><span>Unassigned</span></div>
+          </div>
+          <div class="taskboard-state-rollup flex-row"><span>7 not started</span></div>
+        </div>
+      </td>
+    </tr>
+    <tr class="bolt-list-row-spacer"></tr>
+    <tr data-row-index="1">
+      <td class="taskboard-collapsed-row" colspan="5" data-column="parent-column" data-row="Ada Lovelace" data-iscollapsed="true">
+        <div class="flex-row flex-center">
+          <button aria-label="Expand this row" class="taskboard-expand-collapse-button bolt-button" id="__bolt-expand-collapse-button-Ada-Lovelace"></button>
+          <div class="wit-ui-control identity-view margin-top-8 text-ellipsis">
+            <div class="vss-Persona identity-avatar" role="img" aria-label="Ada Lovelace"></div>
+            <div class="identity-display-name"><span>Ada Lovelace</span></div>
+          </div>
+          <div class="taskboard-state-rollup flex-row"><span>1 not started</span><span class="margin-left-8">1 in progress (2)</span></div>
         </div>
       </td>
     </tr>

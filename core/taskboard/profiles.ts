@@ -25,22 +25,30 @@ export interface Profile {
   titleOf(row: Element): Element | null;
 }
 
-// Zero is what the older taskboard calls the row of tasks without a story.
+// Zero is what both taskboards call the row of tasks without a story.
 const WORK_ITEM_ID = /^[1-9]\d*$/;
 
-// Verified on dev.azure.com 2026-11-04. The collapsed row is one cell that
-// carries the id as data-row. The title is a span without a class of its own,
-// so it is the first spaced span among the children of the cell's flex row,
-// after the type icon. The state rollup is a nested flex row with spaced spans
-// of its own, which looking at the children alone keeps out. The row without a
-// work item has a word in data-row. A row without the attribute has not been
-// seen, so nothing here is called UNREADABLE until it has.
+// Verified on dev.azure.com 2026-11-04 and 2026-11-17, in the page and in the
+// board's own script. The collapsed row is one cell that carries the board's
+// key for the row as data-row: a story's id, 0 for the tasks without a story,
+// and with the board grouped by people a display name, or a word for the
+// tasks nobody has. A person's row has an identity where a story has its
+// title, and a name can be all digits, so those rows are told by the identity
+// and not by the key. The board makes the key from an id or a name before it
+// draws the row, so a cell without the attribute is one the board no longer
+// builds this way, and the only case that is UNREADABLE. The title is a span
+// without a class of its own, so it is the first spaced span among the
+// children of the cell's flex row, after the type icon. The state rollup is a
+// nested flex row with spaced spans of its own, which looking at the children
+// alone keeps out.
 export const cloud: Profile = {
   name: 'cloud',
   rows: (root) => [...root.querySelectorAll('td.taskboard-collapsed-row')],
   idOf(row) {
-    const id = row.getAttribute('data-row');
-    return id && WORK_ITEM_ID.test(id) ? id : null;
+    if (row.querySelector('.identity-view')) return null;
+    const key = row.getAttribute('data-row');
+    if (key === null) return UNREADABLE;
+    return WORK_ITEM_ID.test(key) ? key : null;
   },
   titleOf(row) {
     const flexRow = row.querySelector('.flex-row');

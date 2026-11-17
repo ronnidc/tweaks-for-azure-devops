@@ -123,6 +123,13 @@ describe('watchTaskboard', () => {
       await vi.waitFor(() => expect(notice.up).toBe(false));
     });
 
+    it('puts the notice up for a cloud row whose cell lost its key', async () => {
+      document.body.innerHTML = cloudBoard();
+      document.querySelector('td[data-row="6"]')!.removeAttribute('data-row');
+      board = watchTaskboard(document, { id: true, state: true }, surroundings());
+      await vi.waitFor(() => expect(notice.up).toBe(true));
+    });
+
     it('says nothing when the row can be read before the wait is over', async () => {
       board = watchTaskboard(document, { id: true, state: true }, surroundings());
       document.getElementById('taskboard-summary-row-18')!.remove();

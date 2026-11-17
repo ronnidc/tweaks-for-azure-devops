@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
-import { cloudBoard, pageQuery, serverBoard } from '../../test/boards';
+import { cloudBoard, cloudPeopleBoard, pageQuery, serverBoard } from '../../test/boards';
 import { cloud, server, UNREADABLE } from './profiles';
 import { answerRowKeys } from './row-keys';
 
@@ -11,6 +11,32 @@ describe('cloud profile', () => {
     const rows = cloud.rows(document);
     expect(rows.map((row) => cloud.idOf(row))).toEqual(['6', null]);
     expect(rows.map((row) => cloud.titleOf(row)?.textContent)).toEqual(['Make a test case for DevOps', 'Unparented']);
+  });
+
+  it('calls a row unreadable when its cell carries no key', () => {
+    document.body.innerHTML = cloudBoard();
+    const row = document.querySelector('td[data-row="6"]')!;
+    row.removeAttribute('data-row');
+    expect(cloud.idOf(row)).toBe(UNREADABLE);
+  });
+
+  it.each(['0', '-1', '', 'Unassigned'])('has no id, and nothing unreadable, for a row whose key is "%s"', (key) => {
+    document.body.innerHTML = cloudBoard();
+    const row = document.querySelector('td[data-row="6"]')!;
+    row.setAttribute('data-row', key);
+    expect(cloud.idOf(row)).toBeNull();
+  });
+
+  it('has no id for a row that is a person, whatever the name, and never calls it unreadable', () => {
+    document.body.innerHTML = cloudPeopleBoard();
+    const rows = cloud.rows(document);
+    expect(rows.map((row) => cloud.idOf(row))).toEqual([null, null]);
+    expect(rows.map((row) => cloud.titleOf(row))).toEqual([null, null]);
+
+    rows[1]!.setAttribute('data-row', '1815');
+    expect(cloud.idOf(rows[1]!)).toBeNull();
+    rows[1]!.removeAttribute('data-row');
+    expect(cloud.idOf(rows[1]!)).toBeNull();
   });
 
   it('finds no rows on a server board', () => {

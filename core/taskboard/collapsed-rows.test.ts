@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cloudBoard, serverBoard } from '../../test/boards';
+import { cloudBoard, cloudPeopleBoard, serverBoard } from '../../test/boards';
 import { decorate, ID_CLASS, STATE_CLASS } from './collapsed-rows';
 import { PROFILES } from './profiles';
 
@@ -97,7 +97,7 @@ describe('decorate', () => {
     decorate(document, PROFILES, BOTH, stateOf);
     expect(rowText(title)).not.toBe(before);
 
-    document.querySelector('td[data-row="6"]')!.setAttribute('data-row', 'unparented');
+    document.querySelector('td[data-row="6"]')!.setAttribute('data-row', '0');
     expect(decorate(document, PROFILES, BOTH, stateOf)).toEqual({ shown: [], wanted: [], unreadable: 0 });
     expect(document.querySelector(`.${ID_CLASS}`)).toBeNull();
     expect(document.querySelector(`.${STATE_CLASS}`)).toBeNull();
@@ -115,5 +115,20 @@ describe('decorate', () => {
     document.body.innerHTML = serverBoard();
     expect(decorate(document, PROFILES, BOTH, stateOf)).toEqual({ shown: ['687'], wanted: ['687'], unreadable: 1 });
     expect(document.getElementById('taskboard-summary-row-18')!.querySelector(`.${ID_CLASS}, .${STATE_CLASS}`)).toBeNull();
+  });
+
+  it('counts a cloud row whose cell lost its key, and takes its badges off', () => {
+    document.body.innerHTML = cloudBoard();
+    decorate(document, PROFILES, BOTH, stateOf);
+    document.querySelector('td[data-row="6"]')!.removeAttribute('data-row');
+
+    expect(decorate(document, PROFILES, BOTH, stateOf)).toEqual({ shown: [], wanted: [], unreadable: 1 });
+    expect(document.querySelector(`.${ID_CLASS}, .${STATE_CLASS}`)).toBeNull();
+  });
+
+  it('puts nothing on a board grouped by people, and counts nothing there', () => {
+    document.body.innerHTML = cloudPeopleBoard();
+    expect(decorate(document, PROFILES, BOTH, stateOf)).toEqual({ shown: [], wanted: [], unreadable: 0 });
+    expect(document.querySelector(`.${ID_CLASS}, .${STATE_CLASS}`)).toBeNull();
   });
 });
