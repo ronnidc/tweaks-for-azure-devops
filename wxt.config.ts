@@ -16,9 +16,11 @@ export default defineConfig({
   },
   zip: {
     // Mozilla's reviewers rebuild the extension from the sources zip, so it
-    // carries the Node version and leaves out the store material.
+    // carries the Node version and leaves out the store material. The zip
+    // takes what is in the folder, not what git tracks, so the agent notes,
+    // a private file that is linked in and ignored by git, are named here.
     includeSources: ['**/*', '.nvmrc'],
-    excludeSources: ['store/**'],
+    excludeSources: ['store/**', 'CLAUDE.md'],
   },
   manifest: ({ browser }) => ({
     name: 'Tweaks for Azure DevOps',
