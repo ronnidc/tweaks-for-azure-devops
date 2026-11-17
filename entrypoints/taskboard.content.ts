@@ -1,7 +1,9 @@
 import '@/ui/taskboard.css';
 import { CLOUD_MATCHES } from '@/core/sites';
 import { rowOptions, watchTaskboard } from '@/core/taskboard/watch';
+import { browser } from '@/platform/browser';
 import { loadSettings, onSettingsChange } from '@/platform/settings';
+import { unreadableNotice } from '@/ui/notice';
 
 export default defineContentScript({
   // The cloud from the manifest. A server the user adds gets this same script
@@ -13,7 +15,8 @@ export default defineContentScript({
   noScriptStartedPostMessage: true,
 
   async main() {
-    const board = watchTaskboard(document, rowOptions(await loadSettings()));
+    const { version } = browser.runtime.getManifest();
+    const board = watchTaskboard(document, rowOptions(await loadSettings()), { notice: unreadableNotice(version) });
     // A switch turned off on the options page takes its badges off without a reload.
     onSettingsChange((settings) => board.setOptions(rowOptions(settings)));
   },

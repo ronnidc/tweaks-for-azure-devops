@@ -24,7 +24,7 @@ Settings are kept in the browser's extension sync storage. If you are signed in 
 
 Nothing to anyone but the Azure DevOps server whose page you are on. The extension has no server of its own, and the developer never receives your work items, your browsing, or anything else. There is no analytics, no crash reporting and no advertising.
 
-The feedback links at the bottom of the options page open your mail program or GitHub with the extension's version and your browser's name and version written in, which you see and can change before you send anything. Nothing is sent until you do.
+The feedback links at the bottom of the options page open your mail program or GitHub with the extension's version and your browser's name and version written in, which you see and can change before you send anything. The notice the extension shows on a taskboard whose work item IDs it cannot read has the same two links, with one more line that says what the notice said, and nothing from the page. Nothing is sent until you do.
 
 ## Site access
 

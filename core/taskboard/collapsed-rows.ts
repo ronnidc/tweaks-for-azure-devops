@@ -1,4 +1,4 @@
-import type { Profile } from './profiles';
+import { type Profile, UNREADABLE } from './profiles';
 
 export interface RowOptions {
   /** Show the work item id in front of the title. */
@@ -12,6 +12,8 @@ export interface Pass {
   shown: string[];
   /** The ids to ask the server about now: rows drawn since the last pass, and rows whose state is not known. */
   wanted: string[];
+  /** How many rows have a work item whose id the page did not give. */
+  unreadable: number;
 }
 
 export const ID_CLASS = 'tfad-id';
@@ -33,15 +35,17 @@ export function decorate(
 ): Pass {
   const shown: string[] = [];
   const wanted: string[] = [];
+  let unreadable = 0;
   for (const profile of profiles) {
     for (const row of profile.rows(root)) {
       const id = profile.idOf(row);
+      if (id === UNREADABLE) unreadable += 1;
       const title = profile.titleOf(row);
       if (!title) continue;
       const idBadge = badgeNextTo(title, ID_CLASS);
       const stateBadge = badgeNextTo(title, STATE_CLASS);
-      if (!id) {
-        // No work item, no badges, also not those an earlier pass put there.
+      if (typeof id !== 'string') {
+        // No id, no badges, also not those an earlier pass put there.
         removeBadge(idBadge, 'after');
         removeBadge(stateBadge, 'before');
         continue;
@@ -65,7 +69,7 @@ export function decorate(
       else if (stateBadge.textContent !== state) stateBadge.textContent = state;
     }
   }
-  return { shown, wanted };
+  return { shown, wanted, unreadable };
 }
 
 function badge(className: string, text: string): HTMLSpanElement {

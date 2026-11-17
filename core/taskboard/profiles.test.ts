@@ -1,6 +1,6 @@
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { cloudBoard, pageQuery, serverBoard } from '../../test/boards';
-import { cloud, server } from './profiles';
+import { cloud, server, UNREADABLE } from './profiles';
 import { answerRowKeys } from './row-keys';
 
 const page = window as Window & { jQuery?: unknown };
@@ -42,7 +42,29 @@ describe('server profile', () => {
     document.body.innerHTML = serverBoard();
     const row = document.getElementById('taskboard-summary-row-18')!;
     expect(row.previousElementSibling?.querySelector('td.taskboard-parent')?.id).toBe('taskboard-table-body_p701');
-    expect(server.idOf(row)).toBeNull();
+    expect(server.idOf(row)).not.toBe('701');
+  });
+
+  it('calls a row unreadable when the page does not answer for it, or keeps no key for it', () => {
+    document.body.innerHTML = serverBoard();
+    expect(server.idOf(document.getElementById('taskboard-summary-row-18')!)).toBe(UNREADABLE);
+
+    page.jQuery = pageQuery({});
+    document.body.innerHTML = serverBoard();
+    expect(server.idOf(document.getElementById('taskboard-summary-row-18')!)).toBe(UNREADABLE);
+  });
+
+  it.each(['__null', 'Ada Lovelace'])('has no id, and nothing unreadable, for a row whose key is %s', (key) => {
+    page.jQuery = pageQuery({ 'taskboard-summary-row-18': key });
+    document.body.innerHTML = serverBoard();
+    expect(server.idOf(document.getElementById('taskboard-summary-row-18')!)).toBeNull();
+  });
+
+  it('asks the page when the content row is there and its cell no longer carries the id', () => {
+    page.jQuery = pageQuery({ 'taskboard-summary-row-15': 687 });
+    document.body.innerHTML = serverBoard();
+    document.getElementById('taskboard-table-body_p687')!.id = 'taskboard-table-body_c1';
+    expect(server.idOf(document.getElementById('taskboard-summary-row-15')!)).toBe('687');
   });
 
   it('reads the id of a row with a content row of its own without asking the page', () => {

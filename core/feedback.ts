@@ -42,22 +42,44 @@ export function describeBrowser(userAgent: string): string {
 export interface FeedbackLinks {
   /** A new mail to the support address, the version in the subject and the browser in the body. */
   mail: string;
-  /** GitHub's choice between the issue forms, which passes the version and the browser on to the form picked. */
+  /**
+   * GitHub's choice between the issue forms, which passes the version and the
+   * browser on to the form picked. With a problem to report it is the bug form
+   * itself.
+   */
   issues: string;
 }
 
-export function feedbackLinks({ version, browser }: { version: string; browser: string }): FeedbackLinks {
+export interface Report {
+  version: string;
+  browser: string;
+  /**
+   * What went wrong, in one line, when it is the extension that asks for the
+   * report. It is written into the mail and the bug form, so the report says
+   * what the user saw without the user having to remember it.
+   */
+  problem?: string;
+}
+
+export function feedbackLinks({ version, browser, problem }: Report): FeedbackLinks {
+  // Line breaks in a mailto body are CRLF (RFC 6068).
+  const body = [browser && `Browser: ${browser}`, problem].filter(Boolean).join('\r\n');
   const mail = [
     `subject=${encodeURIComponent(`${NAME} ${version}`)}`,
-    // Line breaks in a mailto body are CRLF (RFC 6068).
-    browser && `body=${encodeURIComponent(`Browser: ${browser}\r\n\r\n`)}`,
+    body && `body=${encodeURIComponent(`${body}\r\n\r\n`)}`,
   ]
     .filter(Boolean)
     .join('&');
   const query = new URLSearchParams({ version });
   if (browser) query.set('browser', browser);
+  if (problem) {
+    // The form's file name and the id of its first field, in .github/ISSUE_TEMPLATE.
+    query.set('template', 'bug.yml');
+    query.set('title', problem);
+    query.set('what', problem);
+  }
   return {
     mail: `mailto:${SUPPORT_EMAIL}?${mail}`,
-    issues: `${REPOSITORY}/issues/new/choose?${query}`,
+    issues: `${REPOSITORY}/issues/new${problem ? '' : '/choose'}?${query}`,
   };
 }

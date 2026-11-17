@@ -20,7 +20,7 @@ describe('decorate', () => {
     document.body.innerHTML = board();
     const pass = decorate(document, PROFILES, BOTH, stateOf);
 
-    expect(pass).toEqual({ shown: [id], wanted: [id] });
+    expect(pass).toMatchObject({ shown: [id], wanted: [id] });
     const idBadge = document.querySelector(`.${ID_CLASS}`)!;
     const stateBadge = document.querySelector(`.${STATE_CLASS}`)!;
     expect(idBadge.textContent).toBe(id);
@@ -45,7 +45,7 @@ describe('decorate', () => {
     decorate(document, PROFILES, BOTH, stateOf);
     const pass = decorate(document, PROFILES, BOTH, stateOf);
 
-    expect(pass).toEqual({ shown: ['6'], wanted: [] });
+    expect(pass).toEqual({ shown: ['6'], wanted: [], unreadable: 0 });
     expect(document.querySelectorAll(`.${ID_CLASS}`)).toHaveLength(1);
     expect(document.querySelectorAll(`.${STATE_CLASS}`)).toHaveLength(1);
   });
@@ -98,7 +98,7 @@ describe('decorate', () => {
     expect(rowText(title)).not.toBe(before);
 
     document.querySelector('td[data-row="6"]')!.setAttribute('data-row', 'unparented');
-    expect(decorate(document, PROFILES, BOTH, stateOf)).toEqual({ shown: [], wanted: [] });
+    expect(decorate(document, PROFILES, BOTH, stateOf)).toEqual({ shown: [], wanted: [], unreadable: 0 });
     expect(document.querySelector(`.${ID_CLASS}`)).toBeNull();
     expect(document.querySelector(`.${STATE_CLASS}`)).toBeNull();
     expect(rowText(title)).toBe(before);
@@ -106,6 +106,14 @@ describe('decorate', () => {
 
   it('asks for no state when that tweak is off', () => {
     document.body.innerHTML = cloudBoard();
-    expect(decorate(document, PROFILES, { id: true, state: false }, stateOf)).toEqual({ shown: ['6'], wanted: [] });
+    const pass = decorate(document, PROFILES, { id: true, state: false }, stateOf);
+    expect(pass).toEqual({ shown: ['6'], wanted: [], unreadable: 0 });
+  });
+
+  it('counts the rows whose id the page does not give, and puts nothing on them', () => {
+    // No page-world script here, so the story that was never expanded has no id to be found.
+    document.body.innerHTML = serverBoard();
+    expect(decorate(document, PROFILES, BOTH, stateOf)).toEqual({ shown: ['687'], wanted: ['687'], unreadable: 1 });
+    expect(document.getElementById('taskboard-summary-row-18')!.querySelector(`.${ID_CLASS}, .${STATE_CLASS}`)).toBeNull();
   });
 });

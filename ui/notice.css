@@ -1,0 +1,70 @@
+/* The notice for ids that cannot be read, as the stylesheet of its shadow tree:
+   top center, above every layer of the page, drawn like one of the page's own
+   warnings. The surface, the text color and the shadow are the page's theme
+   tokens, which reach into a shadow tree and which the cloud and the server
+   share, so the notice follows the theme. The fallbacks are the light theme's
+   values, for a server old enough to have no themes. */
+
+/* No box of its own in the page's layout, whatever the page's rules say about
+   an element in its body. */
+:host {
+  display: contents !important;
+}
+
+.notice {
+  position: fixed;
+  inset-block-start: 8px;
+  inset-inline: 16px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  box-sizing: border-box;
+  inline-size: fit-content;
+  max-inline-size: 46rem;
+  margin-inline: auto;
+  padding-block: 8px;
+  padding-inline: 12px 6px;
+  border-radius: 4px;
+  /* The warning surface on top of the page's own background, in case a theme
+     makes the warning surface see-through. */
+  background:
+    linear-gradient(var(--status-warning-background, #fbf2ec), var(--status-warning-background, #fbf2ec)),
+    var(--background-color, #fff);
+  color: var(--text-primary-color, rgb(0 0 0 / 0.9));
+  box-shadow:
+    0 3.2px 7.2px var(--callout-shadow-color, rgb(0 0 0 / 0.13)),
+    0 0.6px 1.8px var(--callout-shadow-secondary-color, rgb(0 0 0 / 0.11));
+  /* The family is the page's own, inherited. The rest is set, since what the
+     page's body hands down differs between the hosts. */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 20px;
+  text-align: start;
+}
+
+/* In the text's own color and underlined: readable on any theme's surface. */
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.close {
+  flex: none;
+  inline-size: 24px;
+  block-size: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 18px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.close:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}

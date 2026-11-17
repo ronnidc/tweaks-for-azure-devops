@@ -9,12 +9,18 @@
 
 import { rowKey } from './row-keys';
 
+/**
+ * What idOf answers when the page has no key at all for a row: the page is no
+ * longer built the way it was when the profile was written.
+ */
+export const UNREADABLE = Symbol('unreadable');
+
 export interface Profile {
   name: 'cloud' | 'server';
   /** The collapsed story rows on the page. */
   rows(root: ParentNode): Element[];
-  /** The row's work item id, or null for a row without one, such as Unparented. */
-  idOf(row: Element): string | null;
+  /** The row's work item id, null for a row without one, such as Unparented, or UNREADABLE. */
+  idOf(row: Element): string | null | typeof UNREADABLE;
   /** The element with the title, which the badges are placed around. */
   titleOf(row: Element): Element | null;
 }
@@ -26,7 +32,9 @@ const WORK_ITEM_ID = /^[1-9]\d*$/;
 // carries the id as data-row. The title is a span without a class of its own,
 // so it is the first spaced span among the children of the cell's flex row,
 // after the type icon. The state rollup is a nested flex row with spaced spans
-// of its own, which looking at the children alone keeps out.
+// of its own, which looking at the children alone keeps out. The row without a
+// work item has a word in data-row. A row without the attribute has not been
+// seen, so nothing here is called UNREADABLE until it has.
 export const cloud: Profile = {
   name: 'cloud',
   rows: (root) => [...root.querySelectorAll('td.taskboard-collapsed-row')],
@@ -52,7 +60,10 @@ export const cloud: Profile = {
 // and for a row without a content row in the page's script data alone, which
 // rowKey asks for. The row of tasks without a story is _p0 on the cell and no
 // number in the script data. Grouped by people the rows are people, and the
-// number on the cell is one of the person's tasks.
+// number on the cell is one of the person's tasks. The board gives every row a
+// key before it puts the row in the page, a person's name and the word it uses
+// for no story included, so a row without any key is one the board no longer
+// builds this way, and the only case that is UNREADABLE.
 const SERVER_ROW = /^taskboard-summary-row-(\d+)$/;
 const SERVER_ID = /_p(\d+)$/;
 
@@ -63,11 +74,13 @@ export const server: Profile = {
     if (row.querySelector('.peopleClassification')) return null;
     const number = SERVER_ROW.exec(row.id)?.[1];
     const content = row.previousElementSibling;
-    const id =
+    const onCell =
       number && content?.id === `taskboard-row-${number}`
         ? SERVER_ID.exec(content.querySelector('td.taskboard-parent')?.id ?? '')?.[1]
-        : rowKey(row);
-    return id && WORK_ITEM_ID.test(id) ? id : null;
+        : undefined;
+    const key = onCell ?? rowKey(row);
+    if (!key) return UNREADABLE;
+    return WORK_ITEM_ID.test(key) ? key : null;
   },
   titleOf: (row) => row.querySelector('.witTitle'),
 };

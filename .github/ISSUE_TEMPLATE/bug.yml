@@ -31,11 +31,11 @@ body:
     id: browser
     attributes:
       label: Browser
-      description: Filled in when you came here from the bottom of the extension's options page.
+      description: Filled in when you came here from the extension, its options page or its notice on the taskboard.
       placeholder: Chrome 141 on macOS
   - type: input
     id: version
     attributes:
       label: Tweaks for Azure DevOps version
-      description: Also filled in from the options page, where it is at the bottom.
+      description: Also filled in from the extension. It stands at the bottom of the options page.
       placeholder: 1.0.0
