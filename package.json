@@ -2,7 +2,7 @@
   "name": "tweaks-for-azure-devops",
   "description": "Browser extension that adds the small things Azure DevOps forgot, starting with the work item ID and state on collapsed taskboard rows",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "GPL-3.0-only",
   "type": "module",
   "engines": {

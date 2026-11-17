@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-17
+
 ### Added
 
 - The work item ID in front of the title on collapsed story rows of the sprint taskboard, muted like the ID on the cards.
@@ -19,4 +21,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A footer on the options page with the version and the two ways to send feedback, by mail or as a GitHub issue, with the version and the browser filled in.
 - A mark of its own: a taskboard with a collapsed row and the number sign it forgot, in one blue on a white tile, for the toolbar, the stores and the options page.
 
-[Unreleased]: https://github.com/ronnidc/tweaks-for-azure-devops/commits/main
+[Unreleased]: https://github.com/ronnidc/tweaks-for-azure-devops/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/ronnidc/tweaks-for-azure-devops/releases/tag/v1.0.0
