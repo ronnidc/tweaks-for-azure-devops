@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="560" viewBox="0 0 1400 560">
+  <!-- The marquee or large promotional tile: the white wordmark on the brand color with the tagline under it. The stores ask for saturated color, little text and branding that matches the icon. The tagline is the one text here that is set in a font, Avenir Next, a geometric face close to the wordmark's own lettering. tiles.sh draws it with the wordmark copied in next to it. -->
+  <rect width="1400" height="560" fill="#1676D2"/>
+  <image href="wordmark-white.svg" x="290" y="128" width="820" height="194"/>
+  <text x="700" y="424" text-anchor="middle" font-family="Avenir Next" font-weight="500" font-size="40" fill="white" fill-opacity="0.85">The features Azure DevOps forgot</text>
+</svg>

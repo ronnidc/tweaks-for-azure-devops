@@ -1,6 +1,6 @@
 # Privacy policy for Tweaks for Azure DevOps
 
-Last updated: 2026-11-04
+Last updated: 2026-11-17
 
 Tweaks for Azure DevOps is a browser extension that adds small features to the Azure DevOps web pages you already use. This page says what it does with data. The short version: it talks only to the Azure DevOps server whose page you are on, with the session you are already signed in with, and nothing is sent to anyone else.
 

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="280" viewBox="0 0 440 280">
+  <!-- The small promotional tile: the white wordmark on the brand color and nothing else, because the stores show the tile at half size in their lists and print the name and the summary next to it anyway. tiles.sh draws it with the wordmark copied in next to it. -->
+  <rect width="440" height="280" fill="#1676D2"/>
+  <image href="wordmark-white.svg" x="36" y="96.5" width="368" height="87"/>
+</svg>

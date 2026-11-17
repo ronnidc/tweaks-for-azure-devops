@@ -7,10 +7,12 @@ Everything the three stores ask for, so a release is uploads and form filling. T
 | File | Is |
 |---|---|
 | `icons.sh` | Renders `public/icon/*.png` and `images/logo-300.png` from `assets/icon.svg` and `assets/icon-small.svg` |
+| `tiles.sh` | Renders the two promotional tiles into `images/` from `promo/` and `assets/wordmark-white.svg` |
+| `promo/` | The promotional tiles as SVG: the white wordmark on the brand color, and on the marquee the tagline under it |
 | `listing.en.md` | Name, short description, summary, description and search terms |
 | `images/` | What gets uploaded: the Edge logo, the screenshots and the promotional tiles |
 
-The mark lives in `assets/`: the full icon, the small icon for 16 and 32 pixels, the wordmark in the brand color and in white for the promotional tiles, the name alone for the options page, and the wordmark on its tile for the README, one image for light and dark because GitHub's picture element follows the operating system's theme, not GitHub's. It was drawn in Figma Make on 2026-11-04 as direction 03, "The missing field": a taskboard with a collapsed row and the number sign it forgot, in #1676D2, a blue of its own next to Shop Again?'s navy so the two tell apart in one toolbar. The screenshots are taken in the publisher's test organization with made-up stories, never from a customer's board, at 1280 by 800 in Claude's Chrome with the content script's core injected, which draws exactly what the extension draws: `taskboard-dark.png` and `taskboard-light.png` with the tweak, `taskboard-light-before.png` without it, for a before and after. The promotional tiles are not made yet.
+The mark lives in `assets/`: the full icon, the small icon for 16 and 32 pixels, the wordmark in the brand color and in white for the promotional tiles, the name alone for the options page, and the wordmark on its tile for the README, one image for light and dark because GitHub's picture element follows the operating system's theme, not GitHub's. It was drawn in Figma Make on 2026-11-04 as direction 03, "The missing field": a taskboard with a collapsed row and the number sign it forgot, in #1676D2, a blue of its own next to Shop Again?'s navy so the two tell apart in one toolbar. The screenshots are taken in the publisher's test organization with made-up stories, never from a customer's board, in Claude's Chrome with the extension loaded, in a window of 800 by 500 at a device pixel ratio of 1.6. That gives 1280 by 800 with everything 1.6 times its size, so the ID and the state can still be read where a store shows the screenshot at half size, and at that width Azure DevOps folds its navigation away by itself: `taskboard-dark.png` and `taskboard-light.png` with the tweak, `taskboard-light-before.png` without it, for a before and after. The promotional tiles are `tile-440x280.png` and `marquee-1400x560.png`, PNG without an alpha channel like the screenshots. The tagline on the marquee is the only text in a font, Avenir Next, which macOS carries, so `tiles.sh` runs on a Mac.
 
 ## Images the stores take
 
@@ -18,8 +20,8 @@ The mark lives in `assets/`: the full icon, the small icon for 16 and 32 pixels,
 |---|---|---|---|
 | Store icon or logo | 128 x 128, `public/icon/128.png`, uploaded on the listing | 300 x 300, `images/logo-300.png` | 128 x 128, `public/icon/128.png`, uploaded under Manage Listing, Images, or the listing shows a puzzle piece |
 | Screenshots | 1280 x 800, at least 1, at most 5 | 1280 x 800, at most 6 | Any size, optional |
-| Small promotional tile | 440 x 280, listings without one are ranked after those with one | 440 x 280, optional | Not used |
-| Marquee or large tile | 1400 x 560, optional | 1400 x 560, optional | Not used |
+| Small promotional tile, `images/tile-440x280.png` | 440 x 280, listings without one are ranked after those with one | 440 x 280, optional | Not used |
+| Marquee or large tile, `images/marquee-1400x560.png` | 1400 x 560, optional | 1400 x 560, optional | Not used |
 
 Screenshots are full bleed, no padding, no rounded corners. The icon has an alpha channel, otherwise Chrome frames it.
 
@@ -27,7 +29,7 @@ Screenshots are full bleed, no padding, no rounded corners. The icon has an alph
 
 1. Set the version in `package.json` and move the changes in `CHANGELOG.md` from Unreleased to a release section with today's date.
 2. `npm test && npm run compile && npm run build:firefox && npm run lint:firefox`.
-3. `npm run zip && npm run zip:firefox`, which leaves three files in `.output/`: `tweaks-for-azure-devops-X.Y.Z-chrome.zip` for Chrome and Edge, `tweaks-for-azure-devops-X.Y.Z-firefox.zip` for Firefox, and `tweaks-for-azure-devops-X.Y.Z-sources.zip` for Mozilla's reviewers.
+3. `npm run zip && npm run zip:firefox`, which leaves three files in `.output/`: `tweaks-for-azure-devops-X.Y.Z-chrome.zip` for Chrome and Edge, `tweaks-for-azure-devops-X.Y.Z-firefox.zip` for Firefox, and `tweaks-for-azure-devops-X.Y.Z-sources.zip` for Mozilla's reviewers. The sources zip takes what is in the folder, not what git tracks, so check that nothing else got in: `comm -23 <(unzip -Z1 .output/tweaks-for-azure-devops-X.Y.Z-sources.zip | sort) <(git ls-files | sort)` prints nothing.
 4. Commit, tag `vX.Y.Z`, push, and make the GitHub release from the tag with the changelog section as its notes: `gh release create vX.Y.Z --title X.Y.Z --notes-file <notes>`. Notes only, no packages: the stores are the distribution, and the Firefox zip is unsigned anyway.
 5. Upload to the three stores as below. A release only reaches users when each store has reviewed it, which takes from hours (Firefox, usually) to days (Chrome, up to a week for the first version, Edge up to seven business days).
 
@@ -55,11 +57,11 @@ The same answers go to Chrome and Edge, and Firefox asks for a subset.
 
 **Notes to the reviewers.** Paste as is:
 
-> Tweaks for Azure DevOps adds small features to Azure DevOps web pages. To test you need an Azure DevOps account (free at https://dev.azure.com) with a project that has a sprint and a user story with a task. Open Boards, Sprints, Taskboard and collapse the story row with the arrow in front of it: the extension puts the work item ID in front of the title and the state after it. The state comes from a same-origin GET to the Azure DevOps REST API with the user's own session. A second content script runs in the page's world for one purpose: the older taskboard of Azure DevOps Server keeps a row's work item ID in its script data, and that script copies it to an attribute on the row when the first script asks. The options page, which the toolbar button opens, has a switch per tweak and a form to add an Azure DevOps Server of one's own, which asks for access to that one site. There is no server of ours, no network request to anyone but the Azure DevOps server the page is on, and no remote code. The source builds with Node 24 and npm: `npm ci` and `npm run build:firefox` (or `npm run build` for Chrome), see "Building from source" in the README.
+> Tweaks for Azure DevOps adds small features to Azure DevOps web pages. To test you need an Azure DevOps account (free at https://dev.azure.com) with a project that has a sprint and a user story with a task. Open Boards, Sprints, Taskboard and collapse the story row with the arrow in front of it: the extension puts the work item ID in front of the title and the state after it. The state comes from a same-origin GET to the Azure DevOps REST API with the user's own session. A second content script runs in the page's world for one purpose: the older taskboard of Azure DevOps Server keeps a row's work item ID in its script data, and that script copies it to an attribute on the row when the first script asks. If a row no longer gives its ID, as after a change in Azure DevOps, a notice at the top of the taskboard says so, with a link to the GitHub issue form and a mail link, and nothing is sent unless the user sends it. The options page, which the toolbar button opens, has a switch per tweak and a form to add an Azure DevOps Server of one's own, which asks for access to that one site. There is no server of ours, no network request to anyone but the Azure DevOps server the page is on, and no remote code. The source builds with Node 24 and npm: `npm ci` and `npm run build:firefox` (or `npm run build` for Chrome), see "Building from source" in the README.
 
 Chrome's test instructions field (under Access) takes 500 characters, so Chrome gets this one:
 
-> Adds small features to Azure DevOps pages. To test: sign in at dev.azure.com (free), open a project's Boards, Sprints, Taskboard, and collapse a story row with the arrow in front of it. The extension puts the work item ID in front of the title and the state after it, read with a same-origin GET to the Azure DevOps REST API with the user's own session. Options: a switch per tweak, and a form to add one's own Azure DevOps Server. No server of ours, no remote code. Source: github.com/ronnidc/tweaks-for-azure-devops
+> Adds small features to Azure DevOps. To test: sign in at dev.azure.com (free), open a project's Boards, Sprints, Taskboard, and collapse a story row with the arrow in front of it. The extension puts the work item ID in front of the title and the state after it, read with a same-origin GET to the site's REST API with the user's own session. Options: a switch per tweak and a form to add an Azure DevOps Server. No server of ours, no remote code. Source: github.com/ronnidc/tweaks-for-azure-devops
 
 ## Chrome Web Store
 
@@ -77,7 +79,7 @@ Chrome's test instructions field (under Access) takes 500 characters, so Chrome 
 - Availability: public, all markets.
 - Properties: category Developer tools, website and support contact from above.
 - Privacy: the same answers as Chrome.
-- Store listings: one row, English. It needs the description and the logo (`images/logo-300.png`). The name and the short description come from the manifest.
+- Store listings: one row, English. It needs the description and the logo (`images/logo-300.png`), and takes the screenshots, the two promotional tiles and the search terms too. The name and the short description come from the manifest.
 - Publish asks whether a tester needs credentials or other info. Answer yes, although there are no credentials: no disables the notes field, and the tweak is conditional on an Azure DevOps account and a collapsed row, which is what the notes explain. Paste the reviewer notes above, up to 2,000 characters, and publish.
 
 ## Firefox Add-ons
