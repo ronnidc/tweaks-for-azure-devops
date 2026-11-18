@@ -20,7 +20,7 @@ Firefox Add-ons, at most 250 characters.
 
 ## Description
 
-Chrome allows 16,000 characters, Edge wants 250 to 10,000, Firefox has no limit worth knowing. The same text goes to all three, as plain paragraphs: the fields are plain text, and a dash in front of a wrapped line does not read as a list.
+Chrome allows 16,000 characters, Edge wants 250 to 10,000, Firefox has no limit worth knowing. The same text goes to all three, as plain paragraphs: Chrome's and Edge's fields are plain text, and a dash in front of a wrapped line does not read as a list. Firefox Add-ons takes some Markdown, so there the three subheadings get two asterisks on each side, which sets them in bold.
 
 > The features Azure DevOps forgot. Tweaks for Azure DevOps adds the small things the product lacks, each with its own switch, so you keep the ones you want.
 >
